@@ -1,0 +1,4 @@
+*.pyc
+attendance/migrations/*
+enrollment/migrations/*
+
