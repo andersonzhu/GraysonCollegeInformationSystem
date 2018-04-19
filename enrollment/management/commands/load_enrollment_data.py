@@ -20,6 +20,10 @@ Then, run `python manage.py migrate` for a new empty database with tables.
 class Command(BaseCommand):
   help = "Loads data from enrollment_data.csv and unemployment_data.csv into our model"
 
+  def semesterFullName(year, isFall):
+    s = 'Fall' if isFall == 1 else 'Spring'
+    return str(year) + ' ' + s
+
   def handle(self, *args, **options):
     if EnrollmentItemByYear.objects.exists():
       print('Enrollment data already loaded... existing.')
@@ -31,17 +35,21 @@ class Command(BaseCommand):
     enrollment_df = pd.read_csv('./enrollment_data.csv')
 
     # if in production mode get the latest unemployment data
-    if !DEBUG:
+    if not DEBUG:
       get_unemployment_data()
 
     unemployment_df = pd.read_csv('./unemployment_data.csv')
     df = pd.merge(enrollment_df, unemployment_df, how='inner', on=['year'])
 
+
+    # model will be built in here
+
     for _, row in df.iterrows():
       enrollmentItemByYear = EnrollmentItemByYear()
       enrollmentItemByYear.year = row['year']
       enrollmentItemByYear.isFall = row['isFall']
-      enrollmentItemByYear.enrollment = row['enrollment']
+      enrollmentItemByYear.semester = enrollmentItemByYear.semesterFullName()
+      enrollmentItemByYear.numberOfStudents = row['enrollment']
       enrollmentItemByYear.attemptedCredits = row['attemptedCredits']
       enrollmentItemByYear.contactHours = row['contactHours']
       enrollmentItemByYear.unemploymentRateLastYear = row['unemploymentRateLastYear']
