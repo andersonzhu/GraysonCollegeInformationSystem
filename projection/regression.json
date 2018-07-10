@@ -1,0 +1,22 @@
+{
+  "weights": [
+    {
+      "model": "enrollemnt",
+      "intercept": 1,
+      "year": 1,
+      "rate": 1
+    },
+    {
+      "model": "attemptedCredits",
+      "intercept": 2,
+      "year": 2,
+      "rate": 2
+    },
+    {
+      "model": "contactHours",
+      "intercept": 3,
+      "year": 3,
+      "rate": 3
+    }
+  ]
+}

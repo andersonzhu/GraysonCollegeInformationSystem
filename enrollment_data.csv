@@ -1,4 +1,4 @@
-year,isFall,enrollment,attemptedCredits,contactHours
+year,isFall,numberOfStudents,attemptedCredits,contactHours
 2000,1,3369,32846,699433
 2001,0,3148,29818,635282
 2001,1,3576,35188,690968
